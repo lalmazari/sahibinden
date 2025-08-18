@@ -1,15 +1,16 @@
-import Image from "next/image";
+import LeftSidebar from "../components/sidebarLinks";
+import CategoryListings from "../components/CategoryListings";
 
-export default function Home() {
+export default function MarketplacePage() {
   return (
-<>
-<h1 className="text-3xl font-bold" style={{ fontFamily: "var(--font-alt)" }}>
-  Welcome to the Marketplace App
-</h1>
-
-<p className="text-base" style={{ fontFamily: "var(--font-body)" }}>
- welcome to the marketplace app, where you can buy and sell products with ease. Our platform is designed to connect buyers and sellers in a seamless way, making transactions simple and efficient.
-</p>
-</>
+    // <>
+    // Main Marketplace Page
+    // </>
+    <div className="max-w-screen-xl mx-auto flex gap-6 px-4 py-8">
+      <LeftSidebar />
+      <div className="flex-1">
+        <CategoryListings />
+      </div>
+    </div>
   );
 }

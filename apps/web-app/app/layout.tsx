@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins, Inter, Open_Sans } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/Footer";
+import UpperFooter from "@/components/UpperFooter";
+import BackToTop from "@/components/BackToTop";
+import Header from "@/components/Header";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -20,7 +24,7 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Marketplace App",
+  title: "sahibinden",
   description: "Modern marketplace built with Next.js and Tailwind 4",
 };
 
@@ -34,7 +38,15 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${inter.variable} ${openSans.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <Header />
+        <main className="pt-[76px]">
+          {children}
+        </main>
+        <UpperFooter />
+        <BackToTop />
+        <Footer />
+      </body>
     </html>
   );
 }
