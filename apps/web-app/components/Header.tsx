@@ -234,16 +234,22 @@ import {
   LogIn,
   Menu,
   X,
+  Home,
 } from "lucide-react";
 
-// Optimized styles object
+// Optimized styles
 const styles = {
   btn: "flex items-center gap-1.5 rounded-md text-sm font-medium transition-all duration-200",
-  btnPrimary: "bg-[#ff642d] text-white px-2.5 sm:px-3.5 py-1.5 hover:bg-[#c33908] hover:scale-105",
-  btnSecondary: "border border-[#38b49b] bg-white px-2 sm:px-2.5 py-1 text-[#262626] hover:border-[#008275] hover:bg-[#f0fdfa] hover:text-[#008275]",
-  iconBtn: "relative p-1.5 sm:p-2 text-gray-600 rounded-md transition-all duration-200",
-  menuLink: "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-gray-100",
-  dropdown: "absolute right-0 mt-2 w-72 sm:w-80 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-xl z-50",
+  btnPrimary:
+    "bg-[#ff642d] text-white px-2.5 sm:px-3.5 py-1.5 hover:bg-[#c33908] hover:scale-105",
+  btnSecondary:
+    "border border-[#38b49b] bg-white px-2 sm:px-2.5 py-1 text-[#262626] hover:border-[#008275] hover:bg-[#f0fdfa] hover:text-[#008275]",
+  iconBtn:
+    "relative p-1.5 sm:p-2 text-gray-600 rounded-md transition-all duration-200",
+  menuLink:
+    "flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors hover:bg-gray-100",
+  dropdown:
+    "absolute right-0 mt-2 w-72 sm:w-80 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-xl z-50",
 };
 
 // Mock data
@@ -279,130 +285,137 @@ export default function Header() {
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () =>
+      document.removeEventListener("mousedown", handleClickOutside);
   }, [handleClickOutside]);
 
   const toggleMenu = useCallback((menuName: string) => {
-    setOpenMenu(prev => prev === menuName ? null : menuName);
+    setOpenMenu((prev) => (prev === menuName ? null : menuName));
   }, []);
 
   const toggleMobileMenu = useCallback(() => {
-    setIsMobileMenuOpen(prev => !prev);
+    setIsMobileMenuOpen((prev) => !prev);
     setOpenMenu(null);
   }, []);
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-gray-100 bg-white/95 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3">
-        
-        {/* Left: Logo + Mobile Menu (logged in only) */}
-        <div className="flex items-center gap-2 sm:gap-3">
-          {isLoggedIn && (
-            <button
-              onClick={toggleMobileMenu}
-              className="p-1.5 sm:p-2 text-gray-600 rounded-md hover:bg-gray-100 transition-colors lg:hidden"
-              aria-label="Toggle menu"
-            >
-              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-          )}
-          <Link href="/" className="flex items-center">
-            <span className="text-base sm:text-lg lg:text-xl font-bold text-[#ff642d] transition-colors hover:text-[#c33908]">
-              sahibinden
-            </span>
-          </Link>
-        </div>
-
-        {/* Center: Search Bar */}
-        <div className="flex-1 max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg mx-2 sm:mx-4">
-          <div className="relative w-full">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="h-8 sm:h-9 w-full rounded-md border border-[#38b49b] pl-2.5 sm:pl-3 pr-7 sm:pr-9 text-xs sm:text-sm placeholder-gray-500 outline-none transition-all duration-200 focus:border-[#008275] focus:ring-2 focus:ring-[#38b49b]/20"
-            />
-            <button
-              type="submit"
-              className="absolute right-1 sm:right-1.5 top-1/2 flex h-5 w-5 sm:h-6 sm:w-6 -translate-y-1/2 items-center justify-center rounded-md bg-[#38b49b] text-white transition-all duration-200 hover:bg-[#008275] hover:scale-105"
-              aria-label="Search"
-            >
-              <Search size={10} className="sm:hidden" />
-              <Search size={12} className="hidden sm:block" />
-            </button>
-          </div>
-        </div>
-
-        {/* Right: Sell + Login/User Menu */}
-        <div className="flex items-center gap-1.5 sm:gap-2" ref={menuRef}>
-          {/* Sell Button - Always visible */}
-          <Link href="/addClassified" className={`${styles.btn} ${styles.btnPrimary}`}>
-            <Plus size={14} />
-            <span className="hidden xs:inline">Sell</span>
-          </Link>
-
-          {!isLoggedIn ? (
-            <Link href="/login" className={`${styles.btn} ${styles.btnSecondary}`}>
-              <LogIn size={14} />
-              <span className="hidden xs:inline">Login</span>
-            </Link>
-          ) : (
-            <>
-              {/* Desktop: Icon Menu */}
-              <div className="hidden lg:flex items-center gap-1">
-                {Object.entries({
-                  favorites: { icon: Heart, color: "hover:text-red-600 hover:bg-red-50" },
-                  notifications: { icon: Bell, color: "hover:text-[#38b49b] hover:bg-[#e6f9f5]" },
-                  messages: { icon: MessageCircle, color: "hover:text-[#38b49b] hover:bg-[#e6f9f5]" },
-                  user: { icon: User, color: "hover:text-[#38b49b] hover:bg-[#e6f9f5]" }
-                }).map(([key, { icon: Icon, color }]) => (
-                  <div key={key} className="relative">
-                    <button
-                      className={`${styles.iconBtn} ${color}`}
-                      onClick={() => toggleMenu(key)}
-                      aria-label={key}
-                    >
-                      <Icon size={18} />
-                    </button>
-                    {openMenu === key && (
-                      key === "user" ? <UserDropdown /> : 
-                      <Dropdown title={key} data={mockData[key as keyof typeof mockData] || []} />
-                    )}
-                  </div>
-                ))}
-              </div>
-
-              {/* Mobile: User Icon */}
+    <>
+      {/* Top Header */}
+      <header className="fixed top-0 left-0 z-50 w-full border-b border-gray-100 bg-white/95 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-3 sm:px-4 lg:px-6 py-2.5 sm:py-3">
+          {/* Left: Logo + Mobile Menu */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {isLoggedIn && (
               <button
                 onClick={toggleMobileMenu}
-                className={`lg:hidden ${styles.iconBtn} hover:text-[#38b49b] hover:bg-[#e6f9f5]`}
-                aria-label="User menu"
+                className="p-1.5 sm:p-2 text-gray-600 rounded-md hover:bg-gray-100 transition-colors lg:hidden"
+                aria-label="Toggle menu"
               >
-                <User size={18} />
+                {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
-            </>
-          )}
-        </div>
-      </div>
+            )}
+            <Link href="/" className="flex items-center">
+              <span className="text-base sm:text-lg lg:text-xl font-bold text-[#ff642d] transition-colors hover:text-[#c33908]">
+                sahibinden
+              </span>
+            </Link>
+          </div>
 
-      {/* Mobile Menu - Only for logged in users */}
-      {isMobileMenuOpen && isLoggedIn && (
-        <MobileMenu onClose={() => setIsMobileMenuOpen(false)} />
-      )}
-    </header>
+          {/* Center: Search Bar */}
+          <div className="flex-1 max-w-xs sm:max-w-sm lg:max-w-md xl:max-w-lg mx-2 sm:mx-4">
+            <div className="relative w-full">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="h-8 sm:h-9 w-full rounded-md border border-[#38b49b] pl-2.5 sm:pl-3 pr-7 sm:pr-9 text-xs sm:text-sm placeholder-gray-500 outline-none transition-all duration-200 focus:border-[#008275] focus:ring-2 focus:ring-[#38b49b]/20"
+              />
+              <button
+                type="submit"
+                className="absolute right-1 sm:right-1.5 top-1/2 flex h-5 w-5 sm:h-6 sm:w-6 -translate-y-1/2 items-center justify-center rounded-md bg-[#38b49b] text-white transition-all duration-200 hover:bg-[#008275] hover:scale-105"
+                aria-label="Search"
+              >
+                <Search size={12} />
+              </button>
+            </div>
+          </div>
+
+          {/* Right: Desktop only */}
+          <div className="hidden lg:flex items-center gap-1.5 sm:gap-2" ref={menuRef}>
+            {/* Sell Button */}
+            <Link href="/addClassified" className={`${styles.btn} ${styles.btnPrimary}`}>
+              <Plus size={14} />
+              <span>Sell</span>
+            </Link>
+
+            {!isLoggedIn ? (
+              <Link href="/login" className={`${styles.btn} ${styles.btnSecondary}`}>
+                <LogIn size={14} />
+                <span>Login</span>
+              </Link>
+            ) : (
+              <>
+                {/* Desktop Icons */}
+                <div className="flex items-center gap-1">
+                  {Object.entries({
+                    favorites: { icon: Heart, color: "hover:text-red-600 hover:bg-red-50" },
+                    notifications: { icon: Bell, color: "hover:text-[#38b49b] hover:bg-[#e6f9f5]" },
+                    messages: { icon: MessageCircle, color: "hover:text-[#38b49b] hover:bg-[#e6f9f5]" },
+                    user: { icon: User, color: "hover:text-[#38b49b] hover:bg-[#e6f9f5]" },
+                  }).map(([key, { icon: Icon, color }]) => (
+                    <div key={key} className="relative">
+                      <button
+                        className={`${styles.iconBtn} ${color}`}
+                        onClick={() => toggleMenu(key)}
+                        aria-label={key}
+                      >
+                        <Icon size={18} />
+                      </button>
+                      {openMenu === key &&
+                        (key === "user" ? (
+                          <UserDropdown />
+                        ) : (
+                          <Dropdown
+                            title={key}
+                            data={mockData[key as keyof typeof mockData] || []}
+                          />
+                        ))}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      </header>
+
+      {/* Bottom Navigation (Mobile/Tablet) */}
+      <BottomTabBar />
+    </>
   );
 }
 
-// Optimized Components
-function Dropdown({ title, data }: { title: string; data: Array<{id: number; title: string; time: string}> }) {
+// Dropdown Component
+function Dropdown({
+  title,
+  data,
+}: {
+  title: string;
+  data: Array<{ id: number; title: string; time: string }>;
+}) {
   return (
     <div className={styles.dropdown}>
       <div className="border-b border-gray-100 bg-gray-50 p-3">
         <h3 className="text-sm font-semibold text-gray-800 capitalize">{title}</h3>
       </div>
       <div className="max-h-64 overflow-y-auto">
-        {data.map(item => (
-          <div key={item.id} className="cursor-pointer border-b border-gray-50 last:border-b-0 p-3 transition-colors hover:bg-gray-50">
-            <p className="text-sm font-medium text-gray-800 line-clamp-2">{item.title}</p>
+        {data.map((item) => (
+          <div
+            key={item.id}
+            className="cursor-pointer border-b border-gray-50 last:border-b-0 p-3 transition-colors hover:bg-gray-50"
+          >
+            <p className="text-sm font-medium text-gray-800 line-clamp-2">
+              {item.title}
+            </p>
             <p className="mt-1 text-xs text-gray-500">{item.time}</p>
           </div>
         ))}
@@ -416,6 +429,7 @@ function Dropdown({ title, data }: { title: string; data: Array<{id: number; tit
   );
 }
 
+// User Dropdown
 function UserDropdown() {
   return (
     <div className="absolute right-0 mt-2 w-52 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-xl z-50">
@@ -430,7 +444,9 @@ function UserDropdown() {
           </Link>
         ))}
         <div className="border-t border-gray-200 pt-2 mt-2">
-          <button className={`${styles.menuLink} text-red-600 hover:bg-red-50 w-full text-left`}>
+          <button
+            className={`${styles.menuLink} text-red-600 hover:bg-red-50 w-full text-left`}
+          >
             <LogOut size={16} className="text-red-500" />
             <span>Logout</span>
           </button>
@@ -440,37 +456,55 @@ function UserDropdown() {
   );
 }
 
-function MobileMenu({ onClose }: { onClose: () => void }) {
+// Bottom Tab Bar (Mobile only)
+function BottomTabBar() {
   return (
-    <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-lg z-40">
-      <div className="px-4 py-4 space-y-2">
-        {[
-          { href: "/favorites", icon: Heart, label: "My Favorites" },
-          { href: "/messages", icon: MessageCircle, label: "Messages" },
-          { href: "/notifications", icon: Bell, label: "Notifications" },
-          { href: "/my-ads", icon: List, label: "My Ads" },
-          { href: "/settings", icon: Settings, label: "Settings" },
-        ].map(({ href, icon: Icon, label }) => (
-          <Link 
-            key={href} 
-            href={href} 
-            onClick={onClose}
-            className="flex items-center gap-3 px-3 py-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors"
-          >
-            <Icon size={18} className="text-gray-500" />
-            <span className="font-medium">{label}</span>
-          </Link>
-        ))}
-        <div className="border-t border-gray-200 pt-3 mt-3">
-          <button 
-            onClick={onClose}
-            className="flex items-center gap-3 px-3 py-3 rounded-lg text-red-600 hover:bg-red-50 transition-colors w-full text-left"
-          >
-            <LogOut size={18} className="text-red-500" />
-            <span className="font-medium">Logout</span>
-          </button>
-        </div>
+    <nav className="fixed bottom-0 left-0 z-50 w-full border-t border-gray-200 bg-white shadow-md lg:hidden">
+      <div className="flex justify-around items-center h-14">
+        {/* Home */}
+        <Link
+          href="/"
+          className="flex flex-col items-center text-gray-600 hover:text-[#ff642d] transition"
+        >
+          <Home size={20} />
+          <span className="text-[10px]">Home</span>
+        </Link>
+
+        {/* Search */}
+        <Link
+          href="/search"
+          className="flex flex-col items-center text-gray-600 hover:text-[#38b49b] transition"
+        >
+          <Search size={20} />
+          <span className="text-[10px]">Search</span>
+        </Link>
+
+        {/* Sell (+ button) */}
+        <Link
+          href="/addClassified"
+          className="flex items-center justify-center w-12 h-12 rounded-full bg-[#ff642d] text-white shadow-md -mt-8 hover:bg-[#c33908] transition"
+        >
+          <Plus size={24} />
+        </Link>
+
+        {/* Notifications */}
+        <Link
+          href="/notifications"
+          className="flex flex-col items-center text-gray-600 hover:text-[#38b49b] transition"
+        >
+          <Bell size={20} />
+          <span className="text-[10px]">Alerts</span>
+        </Link>
+
+        {/* User */}
+        <Link
+          href="/profile"
+          className="flex flex-col items-center text-gray-600 hover:text-[#38b49b] transition"
+        >
+          <User size={20} />
+          <span className="text-[10px]">Profile</span>
+        </Link>
       </div>
-    </div>
+    </nav>
   );
 }
