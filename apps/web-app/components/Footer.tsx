@@ -46,8 +46,6 @@ const FOOTER_DATA = {
     { icon: Instagram, href: "#" },
     { icon: Linkedin, href: "#" },
     { icon: Youtube, href: "#" },
-
-
   ],
   downloads: [
     { src: "/app-store.svg", alt: "App Store", href: "#" },
@@ -62,78 +60,104 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#F2F2F2] text-[#616161]">
-      <div className="max-w-screen-xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 py-10">
-        {/* Columns 1-3: Links */}
-        {FOOTER_DATA.columns.map((col, i) => (
-          <div key={i}>
-            <h4 className="font-semibold teext-sm mb-2 uppercase">{col.title}</h4>
-            {col.links.map((link, idx) => (
-              <Link
-                key={idx}
-                href={link.href}
-                className="block font-light text-sm mb-1 hover:underline hover:text-[#181818]"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        ))}
-
-        {/* Column 4 (double width): Social + Downloads */}
-        <div className="col-span-2 md:col-span-1 flex flex-col">
-          <h4 className="font-semibold mb-2 uppercase">Follow Us</h4>
-
-          {/* Social icons */}
-          <div className="flex space-x-3 mb-4">
-            {FOOTER_DATA.social.map(({ icon: Icon, href }, idx) => (
-              <Link
-                key={idx}
-                href={href}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0E0E0] hover:bg-[#D6D6D6] transition"
-              >
-                <Icon size={20} className="text-[#616161]" />
-              </Link>
-            ))}
-          </div>
-
-          {/* Download buttons */}
-          <div className="flex flex-wrap gap-2">
-            {FOOTER_DATA.downloads.map((app, idx) => (
-              <Link
-                key={idx}
-                href={app.href}
-                className="inline-block transition-transform"
-              >
-                <Image src={app.src} alt={app.alt} width={120} height={40} />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom copyright + Language Selector */}
-      <div className=" mt-6 py-4 flex flex-col md:flex-row items-center justify-between max-w-screen-xl mx-auto px-4">
-        <p className="text-center md:text-left font-light text-sm">
-          &copy; {new Date().getFullYear()} {FOOTER_DATA.copyright}
-        </p>
-
-        {/* Language Switcher */}
-        <div className="flex items-center gap-2 mt-3 md:mt-0">
-          {["English", "پښتو", "دری"].map((lang, index) => (
-            <div key={lang} className="flex items-center ">
-              <button
-                onClick={() => setLanguage(lang)}
-                className={`text-sm hover:cursor-pointer ${
-                  language === lang
-                    ? "font-semibold text-sm text-black"
-                    : "text-gray-700"
-                } hover:underline`}
-              >
-                {lang}
-              </button>
-              {index < 2 && <span className="px-2 text-gray-400">|</span>}
+      <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main footer content */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 py-8 lg:py-10">
+          {/* Columns 1-3: Links */}
+          {FOOTER_DATA.columns.map((col, i) => (
+            <div key={i} className="space-y-3">
+              <h4 className="font-semibold text-sm mb-3 uppercase text-[#333]">
+                {col.title}
+              </h4>
+              <div className="space-y-2">
+                {col.links.map((link, idx) => (
+                  <Link
+                    key={idx}
+                    href={link.href}
+                    className="block font-light text-sm hover:underline hover:text-[#181818] transition-colors duration-200"
+                  >
+                    {link.label}
+                  </Link>
+                ))}
+              </div>
             </div>
           ))}
+
+          {/* Column 4: Social + Downloads */}
+          <div className="sm:col-span-2 lg:col-span-1 space-y-6">
+            {/* Social Section */}
+            <div>
+              <h4 className="font-semibold text-sm mb-3 uppercase text-[#333]">
+                Follow Us
+              </h4>
+              <div className="flex flex-wrap gap-3 mb-6">
+                {FOOTER_DATA.social.map(({ icon: Icon, href }, idx) => (
+                  <Link
+                    key={idx}
+                    href={href}
+                    className="w-10 h-10 flex items-center justify-center rounded-full bg-[#E0E0E0] hover:bg-[#D6D6D6] transition-colors duration-200 hover:scale-105 transform"
+                  >
+                    <Icon size={18} className="text-[#616161]" />
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Download buttons */}
+            <div>
+              <h4 className="font-semibold text-sm mb-3 uppercase text-[#333]">
+                Download App
+              </h4>
+              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-2">
+                {FOOTER_DATA.downloads.map((app, idx) => (
+                  <Link
+                    key={idx}
+                    href={app.href}
+                    className="inline-block transition-transform"
+                  >
+                    <Image 
+                      src={app.src} 
+                      alt={app.alt} 
+                      width={120} 
+                      height={40}
+                      className="w-28 sm:w-32 h-auto"
+                    />
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom section - Copyright + Language Selector */}
+        <div className="border-t border-[#E0E0E0] pt-6 pb-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            {/* Copyright */}
+            <p className="text-center sm:text-left font-light text-sm order-2 sm:order-1">
+              &copy; {new Date().getFullYear()} {FOOTER_DATA.copyright}
+            </p>
+
+            {/* Language Switcher */}
+            <div className="flex items-center gap-1 order-1 sm:order-2">
+              {["English", "پښتو", "دری"].map((lang, index) => (
+                <div key={lang} className="flex items-center">
+                  <button
+                    onClick={() => setLanguage(lang)}
+                    className={`text-sm px-2 py-1 rounded transition-colors duration-200 ${
+                      language === lang
+                        ? "font-semibold text-black"
+                        : "text-gray-700 hover:text-black hover:cursor-pointer"
+                    }`}
+                  >
+                    {lang}
+                  </button>
+                  {index < 2 && (
+                    <span className="px-2 text-gray-400 select-none">|</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </footer>
