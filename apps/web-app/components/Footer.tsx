@@ -9,7 +9,6 @@ import {
   Instagram,
   Linkedin,
   Youtube,
-  TicketCheckIcon,
 } from "lucide-react";
 
 // Footer config
@@ -55,7 +54,7 @@ const FOOTER_DATA = {
     { src: "/google-play.svg", alt: "Google Play", href: "#" },
     { src: "/app-gallery.svg", alt: "AppGallery", href: "#" },
   ],
-  copyright: "Sahibinden",
+  copyright: "sahibinden",
 };
 
 const Footer = () => {

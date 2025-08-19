@@ -19,14 +19,20 @@ import {
 const btnBase =
   "flex items-center gap-1.5 rounded-md text-sm font-medium transition-colors duration-200";
 const btnPrimary =
-  `${btnBase} bg-green-600 text-white px-3.5 py-1.5 hover:bg-green-700`;
+  `${btnBase} bg-[#ff642d] text-white px-3.5 py-1.5 hover:bg-[#c33908]`;
 const btnSecondary =
-  `${btnBase} border border-gray-200 bg-white px-2.5 py-1 text-[#262626] hover:bg-gray-50`;
+  `${btnBase} border border-[#38b49b] bg-white px-2.5 py-1 text-[#262626] hover:border-[#008275] hover:bg-[#f0fdfa] hover:text-[#008275]`;
 const iconBtn =
-  "relative p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors duration-200";
+  "relative p-2 text-gray-600 rounded-md transition-colors duration-200";
+
+// 🎨 Icon Hover Colors
+const hoverFavorites = "hover:text-red-600 hover:bg-red-50 hover:cursor-pointer";
+const hoverNotifications = "hover:text-[#38b49b] hover:bg-[#e6f9f5] hover:cursor-pointer";
+const hoverMessages = "hover:text-[#38b49b] hover:bg-[#e6f9f5] hover:cursor-pointer";
+const hoverUser = "hover:text-[#38b49b] hover:bg-[#e6f9f5] hover:cursor-pointer";
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Replace with real auth
+  const [isLoggedIn, ] = useState(true); // Replace with real auth
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -49,22 +55,22 @@ export default function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-3">
         {/* Logo */}
         <Link href="/" className="flex flex-shrink-0 items-center gap-2">
-          <span className="text-xl font-bold text-gray-800 transition-colors hover:text-blue-600">
+          <span className="text-xl font-bold text-[#ff642d] transition-colors hover:text-[#c33908]">
             sahibinden
           </span>
         </Link>
 
         {/* Search Bar */}
-        <div className="flex-1 max-w-2xl">
+        <div className="flex-1 max-w-lg">
           <div className="relative">
             <input
               type="text"
               placeholder="What are you looking for?"
-              className="h-9 w-full rounded-md border border-gray-200 pl-3 pr-10 text-sm placeholder-gray-500 outline-none transition-all duration-200 focus:border-gray-800 focus:ring-2 focus:ring-blue-100"
+              className="h-9 w-full rounded-md border border-[#38b49b] pl-3 pr-10 text-sm placeholder-gray-500 outline-none transition-all duration-200 focus:border-[#008275] focus:ring-2 focus:ring-[#38b49b]/20"
             />
             <button
               type="submit"
-              className="absolute right-1.5 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-md bg-gray-800 text-white transition-colors duration-200 hover:bg-gray-700 hover:cursor-pointer"
+              className="absolute right-1.5 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded-md bg-[#38b49b] text-white transition-colors duration-200 hover:bg-[#008275] hover:cursor-pointer"
             >
               <Search size={14} />
             </button>
@@ -96,7 +102,7 @@ export default function Header() {
               {/* Favorites */}
               <div className="relative">
                 <button
-                  className={`${iconBtn} hover:text-red-600 hover:bg-red-50 hover:cursor-pointer`}
+                  className={`${iconBtn} ${hoverFavorites}`}
                   onClick={() => toggleMenu("favorites")}
                 >
                   <Heart size={18} />
@@ -113,7 +119,7 @@ export default function Header() {
               {/* Notifications */}
               <div className="relative">
                 <button
-                  className={`${iconBtn} hover:text-blue-600 hover:bg-blue-50 hover:cursor-pointer`}
+                  className={`${iconBtn} ${hoverNotifications}`}
                   onClick={() => toggleMenu("notifications")}
                 >
                   <Bell size={18} />
@@ -130,7 +136,7 @@ export default function Header() {
               {/* Messages */}
               <div className="relative">
                 <button
-                  className={`${iconBtn} hover:text-blue-600 hover:bg-blue-50 hover:cursor-pointer`}
+                  className={`${iconBtn} ${hoverMessages}`}
                   onClick={() => toggleMenu("messages")}
                 >
                   <MessageCircle size={18} />
@@ -152,7 +158,7 @@ export default function Header() {
               {/* User */}
               <div className="relative">
                 <button
-                  className={`${iconBtn} hover:text-blue-600 hover:bg-blue-50 hover:cursor-pointer`}
+                  className={`${iconBtn} ${hoverUser}`}
                   onClick={() => toggleMenu("user")}
                 >
                   <User size={18} />
@@ -195,7 +201,7 @@ function Dropdown({ title, children }: { title: string; children: React.ReactNod
       </div>
       <div className="max-h-64 overflow-y-auto">{children}</div>
       <div className="border-t border-gray-100 bg-gray-50 p-3">
-        <button className="text-xs font-medium text-blue-600 hover:text-blue-700">
+        <button className="text-xs font-medium text-[#38b49b] hover:text-[#008275]">
           View all {title.toLowerCase()}
         </button>
       </div>
