@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
   Facebook,
@@ -47,11 +46,11 @@ const FOOTER_DATA = {
     { icon: Linkedin, href: "#" },
     { icon: Youtube, href: "#" },
   ],
-  downloads: [
-    { src: "/app-store.svg", alt: "App Store", href: "#" },
-    { src: "/google-play.svg", alt: "Google Play", href: "#" },
-    { src: "/app-gallery.svg", alt: "AppGallery", href: "#" },
-  ],
+  // downloads: [
+  //   { src: "/app-store.svg", alt: "App Store", href: "#" },
+  //   { src: "/google-play.svg", alt: "Google Play", href: "#" },
+  //   { src: "/app-gallery.svg", alt: "AppGallery", href: "#" },
+  // ],
   copyright: "sahibinden",
 };
 
@@ -104,7 +103,7 @@ const Footer = () => {
             </div>
 
             {/* Download buttons */}
-            <div>
+            {/* <div>
               <h4 className="font-semibold text-sm mb-3 uppercase text-[#333]">
                 Download App
               </h4>
@@ -125,7 +124,7 @@ const Footer = () => {
                   </Link>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
